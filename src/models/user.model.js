@@ -59,11 +59,17 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+// Add methodsin userModel
+// Adding Password Validation method here
 userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)
 }
 
 // Defining method for generating token 
+
+// for generating token we rw using jwt
+// the method is jwt sign that takes parameters
+//  1st Payload 2nd) private token -> that you can take from jwt  3) expiration 
 userSchema.methods.generateAccessToken = function(){
     return jwt.sign(
         {
@@ -78,6 +84,11 @@ userSchema.methods.generateAccessToken = function(){
         }
     )
 }
+// definig method here for extra capaibilites
+//what is the refresh token here
+// Like we need to generate the access token but it is limited time and it will ask the credentails again
+//  refreshToken will be stored in db and make one request to check the token match
+//  token match create new seeion with new token id and new accessToken as well as replace the refresh token
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {

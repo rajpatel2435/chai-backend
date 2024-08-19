@@ -35,6 +35,9 @@ router.route("/register").post(
 router.route("/login").post(loginUser)
 
 //secured routes
+// verify jwt is middle ware and then we also use tge next()
+// it will pass to next function that i am done with that you can use that now
+
 router.route("/logout").post(verifyJWT,  logoutUser)
 router.route("/refresh-token").post(refreshAccessToken)
 router.route("/change-password").post(verifyJWT, changeCurrentPassword)

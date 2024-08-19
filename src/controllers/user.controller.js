@@ -262,6 +262,9 @@ const getCurrentUser = asyncHandler(async(req, res) => {
         "User fetched successfully"
     ))
 })
+// we already have middle ware which gave us the info about the user with id name title description and more
+// req.user contains the information
+
 
 const updateAccountDetails = asyncHandler(async(req, res) => {
     const {fullName, email} = req.body
@@ -270,6 +273,7 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
         throw new ApiError(400, "All fields are required")
     }
 
+    //   {new: true} after updating info it will return the updated information in response
     const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
@@ -320,6 +324,8 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
     )
 })
 
+
+
 const updateUserCoverImage = asyncHandler(async(req, res) => {
     const coverImageLocalPath = req.file?.path
 
@@ -361,7 +367,8 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
     if (!username?.trim()) {
         throw new ApiError(400, "username is missing")
     }
-
+// aggregiation pipelines
+// whetver you want to pass it here just oass in array after .aggregate([{},{},{}])
     const channel = await User.aggregate([
         {
             $match: {

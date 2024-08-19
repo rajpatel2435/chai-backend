@@ -11,6 +11,6 @@ const subscriptionSchema = new Schema({
     }
 }, {timestamps: true})
 
-
+// timestamps tru it means it has the information for created updated
 
 export const Subscription = mongoose.model("Subscription", subscriptionSchema)
